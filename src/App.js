@@ -49,7 +49,7 @@ function StudentsList() {
 }
 
 /*
-const newStudent = () => {
+function NewStudent = () => {
     return (
       <div>
         <form onSubmit={handleSubmit}>
