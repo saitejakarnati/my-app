@@ -1,23 +1,33 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function StudentsList() {
+
   const [name, setName] = useState("");
   const [rollno, setRollno] = useState("");
   const [city, setCity] = useState("");
+  const [students, setStudents] = useState([]);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    const allKeys = Object.keys(localStorage);
+    console.log(allKeys)
+    const allStudents = allKeys.map((key) => JSON.parse(localStorage.getItem(key)));
+    setStudents(allStudents);
+    console.log(allStudents);
+  }, []);
+
+  const handleSubmit = (e) => {
     let student = {
       name: name,
       rollno: rollno,
-      cit: city
+      city: city
     }
     localStorage.setItem(rollno, JSON.stringify(student))
   }
 
   return (
     <div className="App">
-        <h1>Students List</h1>
+      <h1>Students List</h1>
       <table style={{ width: "80%" }}>
         <tr>
           <th>Student Name</th>
@@ -25,6 +35,17 @@ function StudentsList() {
           <th>City</th>
         </tr>
         <tbody>
+          {
+            students.map((item, key) => {
+              return (
+                <tr key={key}>
+                  <td>{item.name}</td>
+                  <td>{item.rollno}</td>
+                  <td>{item.city}</td>
+                </tr>
+              )
+            })
+          }
 
         </tbody><br />
         <button type="button">Add Student</button>
@@ -42,9 +63,9 @@ function StudentsList() {
           <button type="submit">Submit</button>
         </form>
       </div>
-      
 
-    </div>  
+
+    </div>
   );
 }
 
