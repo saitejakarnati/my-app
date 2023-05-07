@@ -7,6 +7,7 @@ function StudentsList() {
   const [rollno, setRollno] = useState("");
   const [city, setCity] = useState("");
   const [students, setStudents] = useState([]);
+  const [selectedId, setSelectedId] = useState(0)
 
   useEffect(() => {
     const allKeys = Object.keys(localStorage);
@@ -16,7 +17,12 @@ function StudentsList() {
     console.log(allStudents);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleClick = (id) => {
+    console.log(id);
+    setSelectedId(id)
+  };
+
+  const handleSubmit = () => {
     let student = {
       name: name,
       rollno: rollno,
@@ -28,7 +34,7 @@ function StudentsList() {
   return (
     <div className="App">
       <h1>Students List</h1>
-      <table style={{ width: "80%" }}>
+      <table className="Table">
         <tr>
           <th>Student Name</th>
           <th>Rollno</th>
@@ -38,7 +44,7 @@ function StudentsList() {
           {
             students.map((item, key) => {
               return (
-                <tr key={key}>
+                <tr className='trow' key={key} onClick={() => handleClick(item.rollno)}>
                   <td>{item.name}</td>
                   <td>{item.rollno}</td>
                   <td>{item.city}</td>
@@ -46,14 +52,12 @@ function StudentsList() {
               )
             })
           }
+        </tbody>
+      </table>
 
-        </tbody><br />
-        <button type="button">Add Student</button>
-      </table><br />
-
-      <div>
+      <div className="newStudent">
         <form onSubmit={handleSubmit}>
-          <h1>New Student</h1>
+          <h2>New Student</h2>
           <label>Student Name:</label>
           <input type="text" onChange={(e) => setName(e.target.value)} value={name} /><br /><br />
           <label>Roll No:</label>
@@ -63,30 +67,22 @@ function StudentsList() {
           <button type="submit">Submit</button>
         </form>
       </div>
-
-
+      {selectedId !== 0 && <StudentDetails id={selectedId} />}
     </div>
   );
 }
 
-/*
-function NewStudent = () => {
-    return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>Student Name:</label>
-          <input type="text" onChange={(e) => setName(e.target.value)} value={name} /><br /><br />
-          <label>Roll No:</label>
-          <input type="text" onChange={(e) => setRollno(e.target.value)} value={rollno} /><br /><br />
-          <label>City:</label>
-          <input type="text" onChange={(e) => setCity(e.target.value)} value={city} /><br /><br />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    )
-  }
-  */
 
-
+function StudentDetails(props) {
+  const id1 = props.id
+  return (
+    <div className="studentdetails">
+      <h2>Student Details</h2>
+      <p>Student Name:{JSON.parse(localStorage.getItem(id1)).name}</p>
+      <p>Roll Number:{JSON.parse(localStorage.getItem(id1)).rollno}</p>
+      <p>City:{JSON.parse(localStorage.getItem(id1)).city}</p>
+    </div>
+  );
+}
 
 export default StudentsList;
