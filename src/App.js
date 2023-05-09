@@ -2,10 +2,6 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 function StudentsList() {
-
-  const [name, setName] = useState("");
-  const [rollno, setRollno] = useState("");
-  const [city, setCity] = useState("");
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState(0)
 
@@ -21,15 +17,6 @@ function StudentsList() {
     console.log(id);
     setSelectedId(id)
   };
-
-  const handleSubmit = () => {
-    let student = {
-      name: name,
-      rollno: rollno,
-      city: city
-    }
-    localStorage.setItem(rollno, JSON.stringify(student))
-  }
 
   return (
     <div className="App">
@@ -53,19 +40,8 @@ function StudentsList() {
             })
           }
         </tbody>
-      </table>
-      <div className="newStudent">
-        <form onSubmit={handleSubmit}>
-          <h2>New Student</h2>
-          <label>Student Name:</label>
-          <input type="text" onChange={(e) => setName(e.target.value)} value={name} /><br /><br />
-          <label>Roll No:</label>
-          <input type="text" onChange={(e) => setRollno(e.target.value)} value={rollno} /><br /><br />
-          <label>City:</label>
-          <input type="text" onChange={(e) => setCity(e.target.value)} value={city} /><br /><br />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+      </table><br />
+      <NewStudent /><br />
       <h2>Student Details</h2>
       {selectedId !== 0 && <StudentDetails id={selectedId} />}
     </div>
@@ -80,6 +56,35 @@ function StudentDetails(props) {
       <p>Student Name: {JSON.parse(localStorage.getItem(id1)).name}</p>
       <p>Roll Number: {JSON.parse(localStorage.getItem(id1)).rollno}</p>
       <p>City: {JSON.parse(localStorage.getItem(id1)).city}</p>
+    </div>
+  );
+}
+
+function NewStudent() {
+  const [name, setName] = useState("");
+  const [rollno, setRollno] = useState("");
+  const [city, setCity] = useState("");
+
+  const handleSubmit = () => {
+    let student = {
+      name: name,
+      rollno: rollno,
+      city: city
+    }
+    localStorage.setItem(rollno, JSON.stringify(student))
+  }
+  return (
+    <div className="newStudent">
+      <form onSubmit={handleSubmit}>
+        <h2>New Student</h2>
+        <label>Student Name:</label>
+        <input type="text" onChange={(e) => setName(e.target.value)} value={name} /><br /><br />
+        <label>Roll No:</label>
+        <input type="text" onChange={(e) => setRollno(e.target.value)} value={rollno} /><br /><br />
+        <label>City:</label>
+        <input type="text" onChange={(e) => setCity(e.target.value)} value={city} /><br /><br />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
