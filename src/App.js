@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
-function StudentsList() {
+function App() {
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState(0)
 
@@ -94,4 +94,4 @@ function NewStudent({ handleData }) {
   );
 }
 
-export default StudentsList;
+export default App;
