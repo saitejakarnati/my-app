@@ -5,17 +5,17 @@ function StudentsList() {
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState(0)
 
-  function handleData(student, rollno) {
-    localStorage.setItem(rollno, JSON.stringify(student))
-    window.location.reload();
+  function handleData(student) {
+    localStorage.setItem(student.rollno, JSON.stringify(student))
   }
   useEffect(() => {
     const allKeys = Object.keys(localStorage);
     console.log(allKeys)
     const allStudents = allKeys.map((key) => JSON.parse(localStorage.getItem(key)));
+    return()=>{
     setStudents(allStudents);
     console.log(allStudents);
-  }, []);
+}}, []);
 
   const handleClick = (id) => {
     console.log(id);
