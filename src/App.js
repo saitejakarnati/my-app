@@ -5,6 +5,10 @@ function StudentsList() {
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState(0)
 
+  function handleData(student, rollno) {
+    localStorage.setItem(rollno, JSON.stringify(student))
+    window.location.reload();
+  }
   useEffect(() => {
     const allKeys = Object.keys(localStorage);
     console.log(allKeys)
@@ -41,7 +45,7 @@ function StudentsList() {
           }
         </tbody>
       </table><br />
-      <NewStudent /><br />
+      <NewStudent handleData={handleData} /><br />
       <h2>Student Details</h2>
       {selectedId !== 0 && <StudentDetails id={selectedId} />}
     </div>
@@ -60,18 +64,19 @@ function StudentDetails(props) {
   );
 }
 
-function NewStudent() {
+function NewStudent({ handleData }) {
   const [name, setName] = useState("");
   const [rollno, setRollno] = useState("");
   const [city, setCity] = useState("");
 
-  const handleSubmit = () => {
-    let student = {
+  function handleSubmit() {
+    
+    const student = {
       name: name,
       rollno: rollno,
       city: city
-    }
-    localStorage.setItem(rollno, JSON.stringify(student))
+    };
+    handleData(student, rollno);
   }
   return (
     <div className="newStudent">
@@ -83,7 +88,7 @@ function NewStudent() {
         <input type="text" onChange={(e) => setRollno(e.target.value)} value={rollno} /><br /><br />
         <label>City:</label>
         <input type="text" onChange={(e) => setCity(e.target.value)} value={city} /><br /><br />
-        <button type="submit">Submit</button>
+        <button type="submit" >Submit</button>
       </form>
     </div>
   );
