@@ -2,14 +2,13 @@
   text-align: center;
 }
 .newStudent{
-  float: left;
-  margin-left: 20%;
-  border: 1px solid #ddd;
+  text-align: center;
 }
 .studentdetails{
-  float: right;
-  margin-right: 22%;
-  border: 1px solid #ddd;
+  text-align: center;
+}
+.studentlist{
+  text-align: center;
 }
 .Table,th,td{
   border: 1px solid #ddd;
