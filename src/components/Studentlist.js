@@ -1,3 +1,4 @@
+import React from "react";
 function Studentlist(props) {
     return (
       <div className="studentlist">

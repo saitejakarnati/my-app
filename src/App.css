@@ -20,4 +20,11 @@
 .trow:hover:hover{
   background-color: rgb(158, 168, 173);
 }
+nav{
+  padding: 20px;
+  background-color: lightblue;
+}
+nav a{
+  margin-right: 20px;
+}
 
