@@ -1,5 +1,9 @@
-function StudentDetails(props) {
-    const id1 = props.id
+import React from "react";
+import { useParams } from "react-router-dom";
+function StudentDetails() {
+  const  {id1}  = useParams()
+  console.log(id1)
+  console.log(JSON.parse(localStorage.getItem(id1)).name)
     return (
       <div className="studentdetails">
         <h2>Student Details</h2>
